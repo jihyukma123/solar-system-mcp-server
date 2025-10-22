@@ -21,7 +21,7 @@ COPY build-all.mts ./
 
 # Build the assets with BASE_URL
 # ARG를 사용해서 빌드 시점에 BASE_URL을 설정할 수 있도록 합니다
-ARG BASE_URL=https://openai-apps-sdk-examples-production-d5aa.up.railway.app
+ARG BASE_URL=https://solar-system-mcp-server-production.up.railway.app
 ENV BASE_URL=${BASE_URL}
 RUN pnpm run build
 
