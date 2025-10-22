@@ -6,9 +6,9 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 # Copy package files
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json pnpm-lock.yaml ./
 COPY tsconfig*.json ./
-COPY vite*.ts ./
+COPY vite*.mts ./
 COPY tailwind.config.ts ./
 COPY vite-env.d.ts ./
 
@@ -34,10 +34,10 @@ WORKDIR /app
 COPY --from=builder /app/assets ./assets
 
 # Copy Python server files
-COPY pizzaz_server_python ./pizzaz_server_python
+COPY solar-system_server_python ./solar-system_server_python
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r pizzaz_server_python/requirements.txt
+RUN pip install --no-cache-dir -r solar-system_server_python/requirements.txt
 
 # Verify assets are in place
 RUN ls -la /app/assets && echo "Assets directory contents verified"
@@ -47,5 +47,5 @@ EXPOSE 8000
 
 # Run the Python server from /app directory
 # This ensures main.py can resolve assets at parent.parent/assets = /app/assets
-CMD ["python", "pizzaz_server_python/main.py"]
+CMD ["python", "solar-system_server_python/main.py"]
 
