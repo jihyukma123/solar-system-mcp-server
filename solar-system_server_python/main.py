@@ -71,9 +71,12 @@ ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
 @lru_cache(maxsize=None)
 def _load_widget_html(component_name: str) -> str:
     html_path = ASSETS_DIR / f"{component_name}.html"
+    logger.info(f"loading html file: {html_path}")
     if html_path.exists():
+        logger.info(f"html 파일 찾았음. {component_name}")
         return html_path.read_text(encoding="utf8")
-
+    else:
+        logger.info(f"html 없음: {component_name} ")
     fallback_candidates = sorted(ASSETS_DIR.glob(f"{component_name}-*.html"))
     if fallback_candidates:
         return fallback_candidates[-1].read_text(encoding="utf8")
@@ -82,6 +85,7 @@ def _load_widget_html(component_name: str) -> str:
         f'Widget HTML for "{component_name}" not found in {ASSETS_DIR}. '
         "Run `pnpm run build` to generate the assets before starting the server."
     )
+
 
 
 WIDGET = SolarWidget(
