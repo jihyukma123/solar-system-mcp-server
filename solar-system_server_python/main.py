@@ -320,6 +320,80 @@ except Exception:  # pragma: no cover - middleware is optional
     pass
 
 
+# 정적 파일 서빙 추가 (JS/CSS assets)
+try:
+    from starlette.responses import FileResponse
+    from starlette.routing import Route
+    import logging
+
+    logger = logging.getLogger(__name__)
+
+    async def serve_static_file(request):
+        """Serve static JS/CSS files from the assets directory."""
+        filename = request.path_params["filename"]
+        file_path = ASSETS_DIR / filename
+        
+        if not file_path.exists():
+            from starlette.responses import Response
+            logger.warning(f"Static file not found: {file_path}")
+            return Response("File not found", status_code=404)
+        
+        # MIME type 설정
+        media_type = None
+        if filename.endswith(".js"):
+            media_type = "application/javascript"
+        elif filename.endswith(".css"):
+            media_type = "text/css"
+        
+        logger.info(f"Serving static file: {file_path}")
+        return FileResponse(file_path, media_type=media_type)
+
+    # 기존 라우트에 정적 파일 라우트 추가
+    from starlette.routing import Mount
+    
+    static_route = Route("/{filename:path}", serve_static_file)
+    
+    # app.routes에 정적 파일 라우트를 추가 (MCP 엔드포인트 뒤에)
+    # *.js, *.css 파일만 처리하도록 필터링
+    original_routes = list(app.routes)
+    
+    # 정적 파일 처리를 위한 미들웨어 추가
+    from starlette.types import ASGIApp, Receive, Scope, Send
+    
+    class StaticFileMiddleware:
+        def __init__(self, app: ASGIApp):
+            self.app = app
+        
+        async def __call__(self, scope: Scope, receive: Receive, send: Send):
+            if scope["type"] == "http":
+                path = scope["path"]
+                # .js 또는 .css 파일 요청인 경우
+                if path.endswith((".js", ".css")):
+                    filename = path.lstrip("/")
+                    file_path = ASSETS_DIR / filename
+                    
+                    if file_path.exists():
+                        media_type = "application/javascript" if path.endswith(".js") else "text/css"
+                        response = FileResponse(file_path, media_type=media_type)
+                        await response(scope, receive, send)
+                        logger.info(f"Served static file: {filename}")
+                        return
+            
+            # 정적 파일이 아니거나 파일이 없으면 기존 앱으로 전달
+            await self.app(scope, receive, send)
+    
+    app.add_middleware(StaticFileMiddleware)
+    
+    if ASSETS_DIR.exists():
+        logger.info(f"Static file serving enabled from {ASSETS_DIR}")
+    else:
+        logger.warning(f"Assets directory not found: {ASSETS_DIR}")
+        
+except Exception as e:
+    import logging
+    logging.getLogger(__name__).error(f"Failed to setup static file serving: {e}")
+
+
 if __name__ == "__main__":
     import uvicorn
 
