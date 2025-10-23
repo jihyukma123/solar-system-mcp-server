@@ -91,11 +91,11 @@ def _load_widget_html(component_name: str) -> str:
 WIDGET = SolarWidget(
     identifier="solar-system",
     title="Explore the Solar System",
-    # template_uri="ui://widget/solar-system.html", -> 동작함
+    template_uri="ui://widget/solar-system_v2.html", # 동작함(default, 문서에서 제공되는 형태)
     # template_uri="my_custom_template_uri_test", -> 동작하지 않음
     # template_uri="ui://my-custom-template-uri-test", - 동작함
     # template_uri="custom://my-custom-template-uri-test", -> 동작하지 않음
-    template_uri="ui+solar://my-custom-template-uri-test",
+    # template_uri="ui+solar://my-custom-template-uri-test", -> 동작함. prefix를 ui로 하는 경우에 동작함(스킴 형태를 유지한다는 가정 하에)
     invoking="Charting the solar system",
     invoked="Solar system ready",
     html=_load_widget_html("solar-system"),
