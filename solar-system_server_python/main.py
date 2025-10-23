@@ -93,6 +93,7 @@ WIDGET = SolarWidget(
     title="Explore the Solar System",
     # template_uri="ui://widget/solar-system.html",
     template_uri="my_custom_template_uri_test",
+    template_uri="https://my-custom-template-uri-test",
     invoking="Charting the solar system",
     invoked="Solar system ready",
     html=_load_widget_html("solar-system"),
