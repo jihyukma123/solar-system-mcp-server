@@ -200,34 +200,34 @@ async def _list_tools() -> List[types.Tool]:
     ]
 
 
-@mcp._mcp_server.list_resources()
-async def _list_resources() -> List[types.Resource]:
-    logger.info("리소스 목록 조회 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    return [
-        types.Resource(
-            name=WIDGET.title,
-            title=WIDGET.title,
-            uri=WIDGET.template_uri,
-            description=_resource_description(WIDGET),
-            mimeType=MIME_TYPE,
-            _meta=_tool_meta(WIDGET),
-        )
-    ]
+# @mcp._mcp_server.list_resources()
+# async def _list_resources() -> List[types.Resource]:
+#     logger.info("리소스 목록 조회 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+#     return [
+#         types.Resource(
+#             name=WIDGET.title,
+#             title=WIDGET.title,
+#             uri=WIDGET.template_uri,
+#             description=_resource_description(WIDGET),
+#             mimeType=MIME_TYPE,
+#             _meta=_tool_meta(WIDGET),
+#         )
+#     ]
 
 
-@mcp._mcp_server.list_resource_templates()
-async def _list_resource_templates() -> List[types.ResourceTemplate]:
-    logger.info("리소스 템플릿 목록 조회 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    return [
-        types.ResourceTemplate(
-            name=WIDGET.title,
-            title=WIDGET.title,
-            uriTemplate=WIDGET.template_uri,
-            description=_resource_description(WIDGET),
-            mimeType=MIME_TYPE,
-            _meta=_tool_meta(WIDGET),
-        )
-    ]
+# @mcp._mcp_server.list_resource_templates()
+# async def _list_resource_templates() -> List[types.ResourceTemplate]:
+#     logger.info("리소스 템플릿 목록 조회 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+#     return [
+#         types.ResourceTemplate(
+#             name=WIDGET.title,
+#             title=WIDGET.title,
+#             uriTemplate=WIDGET.template_uri,
+#             description=_resource_description(WIDGET),
+#             mimeType=MIME_TYPE,
+#             _meta=_tool_meta(WIDGET),
+#         )
+#     ]
 
 
 async def _handle_read_resource(req: types.ReadResourceRequest) -> types.ServerResult:
