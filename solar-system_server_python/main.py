@@ -185,6 +185,7 @@ def _normalize_planet(name: str) -> str | None:
 
 @mcp._mcp_server.list_tools()
 async def _list_tools() -> List[types.Tool]:
+    logger.info("도구 목록 조회 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return [
         types.Tool(
             name="focus-solar-planet",
@@ -198,6 +199,7 @@ async def _list_tools() -> List[types.Tool]:
 
 @mcp._mcp_server.list_resources()
 async def _list_resources() -> List[types.Resource]:
+    logger.info("리소스 목록 조회 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return [
         types.Resource(
             name=WIDGET.title,
@@ -212,6 +214,7 @@ async def _list_resources() -> List[types.Resource]:
 
 @mcp._mcp_server.list_resource_templates()
 async def _list_resource_templates() -> List[types.ResourceTemplate]:
+    logger.info("리소스 템플릿 목록 조회 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return [
         types.ResourceTemplate(
             name=WIDGET.title,
