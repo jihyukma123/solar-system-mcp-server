@@ -91,7 +91,8 @@ def _load_widget_html(component_name: str) -> str:
 WIDGET = SolarWidget(
     identifier="solar-system",
     title="Explore the Solar System",
-    template_uri="ui://widget/solar-system.html",
+    # template_uri="ui://widget/solar-system.html",
+    template_uri="my_custom_template_uri_test",
     invoking="Charting the solar system",
     invoked="Solar system ready",
     html=_load_widget_html("solar-system"),
