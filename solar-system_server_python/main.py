@@ -233,6 +233,9 @@ async def _list_resource_templates() -> List[types.ResourceTemplate]:
 async def _handle_read_resource(req: types.ReadResourceRequest) -> types.ServerResult:
     resource_uri = str(req.params.uri)
 
+    logger.info("리소스 목록 READ 호출됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    logger.info(f"요청 정보: {resource_uri}")
+
     if resource_uri != WIDGET.template_uri:
         return types.ServerResult(
             types.ReadResourceResult(
