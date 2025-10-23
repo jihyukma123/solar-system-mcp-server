@@ -91,10 +91,11 @@ def _load_widget_html(component_name: str) -> str:
 WIDGET = SolarWidget(
     identifier="solar-system",
     title="Explore the Solar System",
-    # template_uri="ui://widget/solar-system.html",
-    # template_uri="my_custom_template_uri_test",
-    # template_uri="ui://my-custom-template-uri-test",
-    template_uri="custom://my-custom-template-uri-test",
+    # template_uri="ui://widget/solar-system.html", -> 동작함
+    # template_uri="my_custom_template_uri_test", -> 동작하지 않음
+    # template_uri="ui://my-custom-template-uri-test", - 동작함
+    # template_uri="custom://my-custom-template-uri-test", -> 동작하지 않음
+    template_uri="ui+solar://my-custom-template-uri-test",
     invoking="Charting the solar system",
     invoked="Solar system ready",
     html=_load_widget_html("solar-system"),
