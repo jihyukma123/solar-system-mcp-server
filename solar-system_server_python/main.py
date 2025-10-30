@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 # ===== 인증 설정 (하드코딩) =====
 AUTH_ENABLED = True  # 인증 활성화 여부 (개발 시 False로 변경 가능)
-AUTH_ISSUER_URL = "https://auth.com"
+AUTH_ISSUER_URL = "https://web-production-941fc.up.railway.app"
 AUTH_JWKS_URL = "https://auth.com/.well-known/jwks.json"
 AUTH_AUDIENCE = "https://solar-system.example.com/mcp"
 AUTH_RESOURCE_SERVER_URL = "https://solar-system.example.com/mcp"
